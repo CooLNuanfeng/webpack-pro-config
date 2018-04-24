@@ -1,0 +1,9 @@
+@mixin linear-gradient($starColor,$endColor,$deg:45){
+    background: linear-gradient(#{$deg}deg, $starColor 0%,$endColor 100%);
+}
+
+.linear{
+    height: 30px;
+    color: #fff;
+    @include linear-gradient(#ff0000,#ff00ff);
+}

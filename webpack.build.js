@@ -7,27 +7,24 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 // ExtractTextPlugin 4.0
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-
-module.exports = {
+const webpackDevconfig = {
     entry : {
-        'vendor' : ['vue','jquery','_'],
-        'index' : './src/pages/index/main.js',
-        'user' : './src/pages/user/main.js'
+        // 'vendor' : ['vue','jquery','_'],
+        'index' : './src/pages/index/main.js'
     },
     mode : 'development',
     output : {
         filename : 'js/[name].js',
-        path : path.resolve(__dirname,'./dist/')
+        path : path.join(__dirname,'./dist/index'),
     },
     optimization: {
-        // runtimeChunk: false,
+        runtimeChunk: false,
         splitChunks: {
             cacheGroups: {
                 vendor: {
-                    chunks: 'initial',
+                    chunks : 'all',
                     name: 'vendor',
-                    test: 'vendor',  //配置后可以使用 ExtractTextPlugin 的命名规则
-                    // enforce: true
+                    test: /vue|jquery|node_modules/,
                 }
             }
         }
@@ -67,7 +64,8 @@ module.exports = {
     },
     resolve: {
         alias: {
-            'vue': 'vue/dist/vue.js',
+            // 'vue': 'vue/dist/vue.js',
+            'vue': path.resolve(__dirname,'./raw/vue.js'),
             '@': path.resolve(__dirname,'./src'),
             '~': path.resolve(__dirname,'./raw'),
             'jquery': path.resolve(__dirname,'./raw/jquery-2.1.1.js'),
@@ -85,15 +83,17 @@ module.exports = {
         new ExtractTextPlugin("css/[name].css"),
         new HtmlWebpackPlugin({
             title : 'my index',
-            filename: 'pages/index.html', //输出文件名
+            filename: 'index.html', //输出文件名
             template: 'template/index.html',
             excludeChunks : ['user']
         }),
-        new HtmlWebpackPlugin({
-            title : 'user page',
-            filename: 'pages/user.html',
-            template: 'template/user.html',
-            chunks : ['user','vendor']
-        })
+        // new HtmlWebpackPlugin({
+        //     title : 'user page',
+        //     filename: 'user/index.html',
+        //     template: 'template/user.html',
+        //     chunks : ['user','vendor']
+        // })
     ]
 }
+
+module.exports = webpackDevconfig;

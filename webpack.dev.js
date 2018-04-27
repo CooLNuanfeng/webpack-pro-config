@@ -4,7 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry : {
-        'index' : './src/pages/index/main.js'
+        'index' : './src/pages/index/main.js',
+        // 'user' : './src/pages/user/main.js'
     },
     mode : 'development',
     output : {
@@ -54,7 +55,8 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx','.css'],
         alias: {
-            'vue': 'vue/dist/vue.js',
+            // 'vue': 'vue/dist/vue.js',
+            'vue': path.resolve(__dirname,'./raw/vue.js'),
             '@': path.resolve(__dirname,'./src'),
             '~': path.resolve(__dirname,'./raw'),
             'jquery': path.resolve(__dirname,'./raw/jquery-2.1.1.js'),
@@ -68,8 +70,15 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
+        //http:0.0.0.0:8888/user.html
+        // new HtmlWebpackPlugin({
+        //     title: 'user page',
+        //     filename: 'user.html',
+        //     template: 'template/user.html'
+        // }),
+        //http:0.0.0.0:8888/index.html
         new HtmlWebpackPlugin({
-            title : 'my index',
+            title: 'index page',
             filename: 'index.html',
             template: 'template/index.html'
         })

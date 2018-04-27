@@ -4,6 +4,7 @@ import App from './app.vue';
 import '~/common.css';
 import '~/common.js';
 
+
 import '../../assets/sass/style.scss';
 
 new Vue({

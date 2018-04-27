@@ -10,24 +10,23 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry : {
-        'vendor' : ['vue','jquery'],
+        // 'vendor' : ['vue','jquery'],
         'index' : './src/pages/index/main.js',
-        'user' : './src/pages/user/main.js'
+        // 'user' : './src/pages/user/main.js'
     },
     mode : 'production',
     output : {
         filename : 'js/[name].[hash:8].js',
-        path : path.resolve(__dirname,'./dist/')
+        path : path.resolve(__dirname,'./dist/index')
     },
     optimization: {
-        // runtimeChunk: false,
+        runtimeChunk: false,
         splitChunks: {
             cacheGroups: {
                 vendor: {
-                    chunks: 'initial',
+                    chunks : 'all',
                     name: 'vendor',
-                    test: 'vendor',  //配置后可以使用 ExtractTextPlugin 的命名规则
-                    // enforce: true
+                    test: /vue|jquery|node_modules/,
                 }
             }
         }
@@ -67,7 +66,8 @@ module.exports = {
     },
     resolve: {
         alias: {
-            'vue': 'vue/dist/vue.js',
+            // 'vue': 'vue/dist/vue.js',
+            'vue': path.resolve(__dirname,'./raw/vue.js'),
             '@': path.resolve(__dirname,'./src'),
             '~': path.resolve(__dirname,'./raw'),
             'jquery': path.resolve(__dirname,'./raw/jquery-2.1.1.js'),
@@ -85,7 +85,7 @@ module.exports = {
         new ExtractTextPlugin("css/[name].[hash:8].min.css"),
         new HtmlWebpackPlugin({
             title : 'my index',
-            filename: 'pages/index.[hash:8].html', //输出文件名
+            filename: 'index.[hash:8].html', //输出文件名
             template: 'template/index.html',
             minify : {
                 removeComments: true,
@@ -94,16 +94,16 @@ module.exports = {
             },
             excludeChunks : ['user']
         }),
-        new HtmlWebpackPlugin({
-            title : 'user page',
-            filename: 'pages/user.[hash:8].html',
-            template: 'template/user.html',
-            minify : {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeAttributeQuotes: true
-            },
-            chunks : ['user','vendor']
-        })
+        // new HtmlWebpackPlugin({
+        //     title : 'user page',
+        //     filename: 'pages/user.[hash:8].html',
+        //     template: 'template/user.html',
+        //     minify : {
+        //         removeComments: true,
+        //         collapseWhitespace: true,
+        //         removeAttributeQuotes: true
+        //     },
+        //     chunks : ['user','vendor']
+        // })
     ]
 }

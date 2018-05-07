@@ -20,7 +20,7 @@ entrys.forEach((item)=>{
             hot: true,
             compress: true,
             host: '0.0.0.0',
-            port: 8888,
+            port: 9000,
             open: true,
             overlay: true
         },
@@ -62,7 +62,7 @@ entrys.forEach((item)=>{
                 // 'vue': 'vue/dist/vue.js',
                 'vue': path.resolve(__dirname,'../raw/vue.js'),
                 '@': path.resolve(__dirname,'../src'),
-                '~': path.resolve(__dirname,'../raw'),
+                '#': path.resolve(__dirname,'../raw'),
                 'jquery': path.resolve(__dirname,'../raw/jquery-2.1.1.js'),
                 '_': path.resolve(__dirname,'../raw/lodash.js')
             }

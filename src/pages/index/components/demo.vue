@@ -9,7 +9,7 @@ export default {
 
 <style lang="less">
 @import '../../../assets/less/style.less';
-@import '../../../../raw/common-minx.less';
+@import '~#/common-minx.less';
 @color : red;
 
 p{

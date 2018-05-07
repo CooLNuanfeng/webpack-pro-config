@@ -15,6 +15,7 @@
 
 <script>
 import Demo from './components/demo.vue';
+import $ from 'jquery';
 
 export default {
     data(){

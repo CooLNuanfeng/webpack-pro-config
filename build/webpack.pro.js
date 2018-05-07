@@ -19,8 +19,13 @@ entrys.forEach((item)=>{
         mode : 'production',
         output : {
             filename : 'js/[name].[chunkhash:8].js',
-            path : path.resolve(__dirname,'../dist/'+item.page)
+            path : path.resolve(__dirname,'../dist/'+item.page),
+            // libraryTarget: "umd"
         },
+        // //与 libraryTarget: "umd" 将 jQuery 单独引入  https://github.com/zhengweikeng/blog/issues/10
+        // externals: {
+        //   jquery: "jQuery"
+        // },
         optimization: {
             runtimeChunk: false,
             splitChunks: {
@@ -71,7 +76,7 @@ entrys.forEach((item)=>{
                 // 'vue': 'vue/dist/vue.js',
                 'vue': path.resolve(__dirname,'../raw/vue.js'),
                 '@': path.resolve(__dirname,'../src'),
-                '~': path.resolve(__dirname,'../raw'),
+                '#': path.resolve(__dirname,'../raw'),
                 'jquery': path.resolve(__dirname,'../raw/jquery-2.1.1.js'),
                 '_': path.resolve(__dirname,'../raw/lodash.js')
             }
@@ -86,7 +91,9 @@ entrys.forEach((item)=>{
                 root: path.resolve(__dirname, '../')
             }),
             new OptimizeCSSPlugin(),
-            new ExtractTextPlugin("css/[name].[chunkhash:8].min.css"),
+            new ExtractTextPlugin({
+                filename: "css/[name].[chunkhash:8].min.css",
+            }),
             new HtmlWebpackPlugin({
                 title : item.title,
                 filename: item.page+'.[chunkhash:8].html', //输出文件名

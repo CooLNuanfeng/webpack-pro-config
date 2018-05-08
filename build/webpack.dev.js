@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 const entrys = require('../entrys.config.js');
 
 let configArr = [];
@@ -29,17 +31,17 @@ entrys.forEach((item)=>{
                 {
                     test : /\.css$/,
                     exclude: /node_modules/,
-                    use : ['style-loader','css-loader','postcss-loader']
+                    use : ['vue-style-loader','css-loader','postcss-loader']
                 },
                 {
                     test : /\.less$/,
                     exclude: /node_modules/,
-                    use : ['style-loader','css-loader','less-loader','postcss-loader']
+                    use : ['vue-style-loader','css-loader','less-loader','postcss-loader']
                 },
                 {
                     test : /\.scss$/,
                     exclude: /node_modules/,
-                    use : ['style-loader','css-loader','sass-loader','postcss-loader']
+                    use : ['vue-style-loader','css-loader','sass-loader','postcss-loader']
                 },
                 {
                     test : /\.js$/,
@@ -53,7 +55,19 @@ entrys.forEach((item)=>{
                     test : /\.vue$/,
                     exclude: /node_modules/,
                     loader : 'vue-loader'
-                }
+                },
+                {
+                    test: /\.(png|jpg|gif)$/,
+                    exclude: /node_modules/,
+                    use: [
+                      {
+                        loader: 'url-loader',
+                        options: {
+                          limit: 1000
+                        }
+                      }
+                    ]
+                 }
             ]
         },
         resolve: {
@@ -72,6 +86,7 @@ entrys.forEach((item)=>{
               $: 'jquery',
               jQuery: 'jquery'
             }),
+            new VueLoaderPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NamedModulesPlugin(),
             //http:0.0.0.0:8888/[item.page].html

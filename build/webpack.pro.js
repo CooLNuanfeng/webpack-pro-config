@@ -3,9 +3,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
-// ExtractTextPlugin 4.0
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const ExtractCssPlugin = require('mini-css-extract-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const entrys = require('../entrys.config.js');
 let configArr = [];
@@ -19,7 +19,7 @@ entrys.forEach((item)=>{
         mode : 'production',
         output : {
             filename : 'js/[name].[chunkhash:8].js',
-            path : path.resolve(__dirname,'../dist/'+item.page),
+            path : path.resolve(__dirname,'../dist/'+item.page)
             // libraryTarget: "umd"
         },
         // //与 libraryTarget: "umd" 将 jQuery 单独引入  https://github.com/zhengweikeng/blog/issues/10
@@ -34,27 +34,75 @@ entrys.forEach((item)=>{
                         chunks : 'all',
                         name: 'vendor',
                         test: /vue|jquery/,
-                    }
+                    },
+                    // styles: {
+                    //   name: 'styles',
+                    //   test: /\.css$/,
+                    //   chunks: 'all'
+                    // }
                 }
             }
         },
         module : {
             rules : [
                 {
+                    test : /\.vue$/,
+                    exclude: /node_modules/,
+                    loader : 'vue-loader',
+                    // options:{
+                    //   video: ['src', 'poster'],
+                    //   source: 'src',
+                    //   img: 'src',
+                    //   image: 'xlink:href'
+                    // }
+                },
+                {
                     test : /\.css$/,
                     exclude: /node_modules/,
-                    use : ['style-loader','css-loader','postcss-loader']
+                    use : [
+                        {
+                            loader: ExtractCssPlugin.loader,
+                            options:{
+                                publicPath: '../'
+                            }
+                        },
+                        {
+                          loader: 'css-loader',
+                          options: { importLoaders: 1 }
+                        },
+                        'postcss-loader'
+                    ]
 
                 },
                 {
                     test : /\.less$/,
                     exclude: /node_modules/,
-                    use : ['style-loader','css-loader','less-loader','postcss-loader']
+                    use : [
+                        {
+                            loader: ExtractCssPlugin.loader,
+                            options:{
+                                publicPath: '../'
+                            }
+                        },
+                        'css-loader',
+                        'less-loader',
+                        'postcss-loader'
+                    ]
                 },
                 {
                     test : /\.scss$/,
                     exclude: /node_modules/,
-                    use : ['style-loader','css-loader','sass-loader','postcss-loader']
+                    use : [
+                        {
+                            loader: ExtractCssPlugin.loader,
+                            options:{
+                                publicPath: '../'
+                            }
+                        },
+                        'css-loader',
+                        'sass-loader',
+                        'postcss-loader'
+                    ]
                 },
                 {
                     test : /\.js$/,
@@ -62,13 +110,19 @@ entrys.forEach((item)=>{
                     loader: 'babel-loader'
                 },
                 {
-                    test : /\.vue$/,
+                    test: /\.(png|jpg|gif)$/,
                     exclude: /node_modules/,
-                    loader : 'vue-loader',
-                    options : {
-                        extractCSS: true  //css 抽离
-                    }
-                }
+                    use: [
+                      {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]?[hash:8]',
+                            outputPath: 'images/',
+                            // publicPath: '../images'
+                        }
+                      }
+                    ]
+                 }
             ]
         },
         resolve: {
@@ -90,9 +144,10 @@ entrys.forEach((item)=>{
             new CleanWebpackPlugin(['dist'],{
                 root: path.resolve(__dirname, '../')
             }),
+            new VueLoaderPlugin(),
             new OptimizeCSSPlugin(),
-            new ExtractTextPlugin({
-                filename: "css/[name].[chunkhash:8].min.css",
+            new ExtractCssPlugin({
+                filename: "css/[name].[chunkhash:8].css"
             }),
             new HtmlWebpackPlugin({
                 title : item.title,

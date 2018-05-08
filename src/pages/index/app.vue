@@ -35,14 +35,18 @@ export default {
 }
 </script>
 
-<style lang="css">
-@import '../../assets/css/style.css';
-
+<style lang="scss">
+@import '../../assets/sass/style.scss';
 div{
     transform: scale(.9);
 }
 h4{
     display: flex;
     flex-direction: column;
+}
+.linear{
+    height: 30px;
+    color: #fff;
+    @include linear-gradient(#ff0000,#ff00ff);
 }
 </style>

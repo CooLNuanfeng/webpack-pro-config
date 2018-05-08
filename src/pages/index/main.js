@@ -1,11 +1,10 @@
 import Vue from 'vue';
 import App from './app.vue';
 
+// 非 .vue中的文件
 import '#/common.css';
 import '#/common.js';
 
-
-import '../../assets/sass/style.scss';
 
 new Vue({
     el : '#app',

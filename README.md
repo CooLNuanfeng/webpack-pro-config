@@ -22,7 +22,5 @@ pages 文件结构,每个单页的入口文件 main.js，目录名称与 entrys.
 ```
 
 
-3. css提取 ExtractTextPlugin 插件版本 4.0
 
-
-4. **待解决** 按需加载 import() 问题
+3. **待解决**  less引入 问题

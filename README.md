@@ -1,6 +1,6 @@
-# webpack4.0 配置
+# webpack4.0 项目配置
 
-vue-loader 版本 v15以上
+**vue-loader 版本 v15以上**
 
 ## 说明
 

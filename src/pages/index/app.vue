@@ -37,6 +37,8 @@ export default {
 
 <style lang="scss">
 @import '../../assets/sass/style.scss';
+@import '~#/_common-mixin.scss';
+
 div{
     transform: scale(.9);
 }
@@ -46,7 +48,16 @@ h4{
 }
 .linear{
     height: 30px;
-    color: #fff;
+    animation: change 3s linear;
+    @include text-mutiplue-overflow();
     @include linear-gradient(#ff0000,#ff00ff);
+}
+@keyframes change {
+    0%{
+        color: #ff0000;
+    }
+    100%{
+        color: #ffffff;
+    }
 }
 </style>

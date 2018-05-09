@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+@mixin text-mutiplue-overflow($n:2) {
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $n;
+    -webkit-box-orient: vertical;
+}

@@ -10,7 +10,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const entrys = require('../entrys.config.js');
 let configArr = [];
 
-
 entrys.forEach((item)=>{
     let json = {
         entry : {
@@ -70,7 +69,14 @@ entrys.forEach((item)=>{
                           loader: 'css-loader',
                           options: { importLoaders: 1 }
                         },
-                        'postcss-loader'
+                        {
+                          loader: 'postcss-loader',
+                          options: {
+                            plugins: (loader) => [
+                              require('autoprefixer')()
+                            ]
+                          }
+                        }
                     ]
 
                 },
@@ -85,8 +91,15 @@ entrys.forEach((item)=>{
                             }
                         },
                         'css-loader',
-                        'less-loader',
-                        'postcss-loader'
+                        {
+                          loader: 'postcss-loader',
+                          options: {
+                            plugins: (loader) => [
+                              require('autoprefixer')()
+                            ]
+                          }
+                        },
+                        'less-loader'
                     ]
                 },
                 {
@@ -100,8 +113,15 @@ entrys.forEach((item)=>{
                             }
                         },
                         'css-loader',
-                        'sass-loader',
-                        'postcss-loader'
+                        {
+                          loader: 'postcss-loader',
+                          options: {
+                            plugins: (loader) => [
+                              require('autoprefixer')()
+                            ]
+                          }
+                        },
+                        'sass-loader'
                     ]
                 },
                 {
@@ -144,11 +164,11 @@ entrys.forEach((item)=>{
             new CleanWebpackPlugin(['dist'],{
                 root: path.resolve(__dirname, '../')
             }),
-            new VueLoaderPlugin(),
-            new OptimizeCSSPlugin(),
             new ExtractCssPlugin({
                 filename: "css/[name].[chunkhash:8].css"
             }),
+            new VueLoaderPlugin(),
+            new OptimizeCSSPlugin(),
             new HtmlWebpackPlugin({
                 title : item.title,
                 filename: item.page+'.[chunkhash:8].html', //输出文件名

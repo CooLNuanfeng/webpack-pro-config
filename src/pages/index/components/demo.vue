@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '~#/common-minx.less';
+@import '~#/common-mixin.less';
 @import '../../../assets/less/style.less';
 @color : red;
 
@@ -30,7 +30,8 @@ p{
     color: @color;
     color: @blue;
     flex: 1;
-
+    // &:extend(.text-overflow);
+    .text-mutil-overflow();
 }
 .bg{
     width: 150px;

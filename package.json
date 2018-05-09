@@ -25,8 +25,8 @@
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.8.3",
-    "optimize-css-assets-webpack-plugin": "^4.0.0",
-    "postcss-loader": "^2.1.4",
+    "optimize-css-assets-webpack-plugin": "^4.0.1",
+    "postcss-loader": "^2.1.5",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
@@ -36,5 +36,6 @@
   },
   "dependencies": {
     "vue": "^2.5.16"
-  }
+  },
+  "browserslist": ["IE 10", "IE 11", "firefox 20", "ios_saf 8.4", "android 4.3"]
 }

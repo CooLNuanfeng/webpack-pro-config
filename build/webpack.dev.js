@@ -31,17 +31,52 @@ entrys.forEach((item)=>{
                 {
                     test : /\.css$/,
                     exclude: /node_modules/,
-                    use : ['vue-style-loader','css-loader','postcss-loader']
+                    use : [
+                        'vue-style-loader',
+                        'css-loader',
+                        {
+                          loader: 'postcss-loader',
+                          options: {
+                            plugins: (loader) => [
+                              require('autoprefixer')()
+                            ]
+                          }
+                        }
+                    ]
                 },
                 {
                     test : /\.less$/,
                     exclude: /node_modules/,
-                    use : ['vue-style-loader','css-loader','less-loader','postcss-loader']
+                    use : [
+                        'vue-style-loader',
+                        'css-loader',
+                        {
+                          loader: 'postcss-loader',
+                          options: {
+                            plugins: (loader) => [
+                              require('autoprefixer')()
+                            ]
+                          }
+                        },
+                        'less-loader'
+                    ]
                 },
                 {
                     test : /\.scss$/,
                     exclude: /node_modules/,
-                    use : ['vue-style-loader','css-loader','sass-loader','postcss-loader']
+                    use : [
+                        'vue-style-loader',
+                        'css-loader',
+                        {
+                          loader: 'postcss-loader',
+                          options: {
+                            plugins: (loader) => [
+                              require('autoprefixer')()
+                            ]
+                          }
+                        },
+                        'sass-loader'
+                    ]
                 },
                 {
                     test : /\.js$/,

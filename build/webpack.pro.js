@@ -146,7 +146,7 @@ entrys.forEach((item)=>{
             ]
         },
         resolve: {
-            extensions: ['.js','vue','.jsx','.css'],
+            extensions: ['.js','.vue','.jsx','.css'],
             alias: {
                 // 'vue': 'vue/dist/vue.js',
                 'vue': path.resolve(__dirname,'../raw/vue.js'),

@@ -30,7 +30,7 @@ entrys.forEach((item)=>{
             splitChunks: {
                 cacheGroups: {
                     vendor: {
-                        chunks : 'all',
+                        chunks: 'initial',
                         name: 'vendor',
                         test: /vue|jquery/,
                     },

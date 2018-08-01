@@ -24,7 +24,14 @@ entrys.forEach((item)=>{
             host: '0.0.0.0',
             port: 9000,
             open: true,
-            overlay: true
+            overlay: true,
+            // 代理转发
+            // proxy: {
+            //     '/*':{
+            //         target: '',
+            //         changeOrigin: true,
+            //     }
+            // }
         },
         module : {
             rules : [

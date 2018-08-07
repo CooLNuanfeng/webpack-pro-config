@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const entrys = require('../entrys.config.js');
+// const proxyConf = require('../proxy.config.js');
 
 let configArr = [];
 
@@ -27,9 +28,10 @@ entrys.forEach((item)=>{
             overlay: true,
             // 代理转发
             // proxy: {
-            //     '/*':{
-            //         target: '',
+            //     [proxyConf.api+'/*']:{
+            //         target: proxyConf.proxy,
             //         changeOrigin: true,
+            //         // secure: false
             //     }
             // }
         },

@@ -111,6 +111,15 @@ entrys.forEach((item)=>{
                         }
                       }
                     ]
+                 },
+                 {
+                     test: /\.svg$/,
+                     use: [
+                        {
+                            loader: 'svg-sprite-loader',
+                        },
+                        'svgo-loader'
+                     ]
                  }
             ]
         },

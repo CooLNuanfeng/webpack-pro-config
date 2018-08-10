@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
-
+// const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const ExtractCssPlugin = require('mini-css-extract-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
@@ -142,6 +142,19 @@ entrys.forEach((item)=>{
                         }
                       }
                     ]
+                 },
+                 {
+                     test: /\.svg$/,
+                     use: [
+                        {
+                            loader: 'svg-sprite-loader',
+                            // options: {
+                            //   extract: true,
+                            //   spriteFilename: 'sprite-[hash:6].svg'
+                            // }
+                        },
+                        'svgo-loader'
+                     ]
                  }
             ]
         },
@@ -165,6 +178,7 @@ entrys.forEach((item)=>{
             new CleanWebpackPlugin(['dist'],{
                 root: path.resolve(__dirname, '../')
             }),
+            // new SpriteLoaderPlugin(),
             new ExtractCssPlugin({
                 filename: "css/[name].[chunkhash:8].css"
             }),

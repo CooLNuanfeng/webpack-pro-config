@@ -115,11 +115,13 @@ entrys.forEach((item)=>{
                  {
                      test: /\.svg$/,
                      use: [
-                        {
-                            loader: 'svg-sprite-loader',
-                        },
+                        'svg-sprite-loader',
                         'svgo-loader'
                      ]
+                 },
+                 {
+                    test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+                    use: ['file-loader']
                  }
             ]
         },
